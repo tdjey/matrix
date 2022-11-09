@@ -92,6 +92,28 @@ public:
         }
         return ans;
     }
+
+    T det() {
+        if (n != m)
+            throw string("Matrix is not square");
+        int ans = 0;
+        if (n == 2)
+            return data[0][0] * data[1][1] - data[0][1] * data[1][0];
+        for (int rest = 0; rest < n; rest++) {
+            Matrix additional(n - 1, n - 1);
+            for (int i = 1; i < n; i++)
+                for (int j = 0; j < n; j++) {
+                    if (j == rest)
+                        continue;
+                    additional.data[i - 1][(j > rest ? j - 1 : j)] = data[i][j];
+                }
+            if (rest & 1)
+                ans -= data[0][rest] * additional.det();
+            else
+                ans += data[0][rest] * additional.det();
+        }
+        return ans;
+    }
     template<typename Type> friend istream& operator>>(istream& input, Matrix<Type>&);
     template<typename Type> friend ostream& operator<<(ostream& output, const Matrix<Type>&);
 };
