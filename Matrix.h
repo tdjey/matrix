@@ -5,7 +5,7 @@ using namespace std;
 
 template<typename T>
 class Matrix {
-    vector<vector<T>> data;
+protected: vector<vector<T>> data;
     int n, m;
 public:
     Matrix() {}
@@ -64,10 +64,14 @@ public:
         return ans;
     }
 
-    void operator=(const Matrix& a) {
-        data = a.data;
+    template<typename Type> void operator=(const Matrix<Type>& a) {
         n = a.n;
         m = a.m;
+        data.resize(n);
+        fill(data.begin(), data.end(), vector<T>(m));
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < m; j++)
+                data[i][j] = (T)a.data[i][j];
     }
 
     Matrix transpose() {
@@ -114,8 +118,74 @@ public:
         }
         return ans;
     }
+    pair<string, vector<long double>> gauss() {
+        if (n + 1 != m)
+            throw string("matrix size is incorrect");
+        Matrix additional(n, n);
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                additional.data[i][j] = data[i][j];
+        if (additional.det() == 0)
+            return { "Degenerate", {} };
+        Matrix<long double> ans(n, m);
+        ans = *this;
+        for (int i = 0; i < n; i++) {
+            int not_null = i;
+            while (ans.data[not_null][i] == 0)
+                not_null++;
+            swap(ans.data[i], ans.data[not_null]);
+            for (int j = i + 1; j < n; j++) {
+                long double coef = ans.data[j][i] / ans.data[i][i];
+                if (ans.data[j][i] != 0)
+                    for (int k = i; k < m; k++)
+                        ans.data[j][k] -= ans.data[i][k] * coef;
+            }
+        }
+        vector<long double> ans_arr(n);
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++)
+                ans_arr[i] -= ans_arr[j] * ans.data[i][j];
+            ans_arr[i] += ans.data[i][n];
+            ans_arr[i] /= ans.data[i][i];
+        }
+        return { "", ans_arr };
+    }
+
+    Matrix<long double> inverse() {
+        if (n != m)
+            throw string("Matrix is not square");
+        long double det = this->det();
+        if (det == 0)
+            throw string("Degenerate");
+        Matrix<long double> ans(n, n, true), additional;
+        additional = *this;
+        for (int i = 0; i < n; i++) {
+            int not_null = i;
+            while (additional.data[not_null][i] == 0)
+                not_null++;
+            swap(additional.data[i], additional.data[not_null]);
+            swap(ans.data[i], ans.data[not_null]);
+            for (int j = 0; j < n; j++) {
+                if (j == i)
+                    continue;
+                long double coef = additional.data[j][i] / additional.data[i][i];
+                if (additional.data[j][i] != 0)
+                    for (int k = 0; k < m; k++) {
+                        additional.data[j][k] -= additional.data[i][k] * coef;
+                        ans.data[j][k] -= ans.data[i][k] * coef;
+                    }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++)
+                ans.data[i][j] /= additional.data[i][i];
+        }
+        return ans;
+    }
+
     template<typename Type> friend istream& operator>>(istream& input, Matrix<Type>&);
     template<typename Type> friend ostream& operator<<(ostream& output, const Matrix<Type>&);
+    friend class Matrix;
 };
 
 template<typename T>
