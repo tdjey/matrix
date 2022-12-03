@@ -30,14 +30,14 @@ public:
         while (x < n) {
             int index = x;
             if (x * 2 + 2 < n) {
-                if (arr[x * 2 + 1] > arr[x * 2 + 2])
+                if (arr[x * 2 + 1] < arr[x * 2 + 2])
                     index = x * 2 + 1;
                 else
                     index = x * 2 + 2;
             }
             else if (x * 2 + 1 < n)
                 index = x * 2 + 1;
-            if (arr[x] < arr[index]) {
+            if (arr[x] > arr[index]) {
                 swap(arr[x], arr[index]);
                 x = index;
             }
@@ -45,12 +45,11 @@ public:
                 break;
         }
     }
-    int sift_up(int x) {
+    void sift_up(int x) {
         while (x > 0 && arr[x] > arr[(x - 1) / 2]) {
             swap(arr[x], arr[(x - 1) / 2]);
             x = (x - 1) / 2;
         }
-        return x;
     }
     void add_elem(int value) {
         arr[n] = value;
@@ -69,27 +68,4 @@ public:
             throw string("The heap is empty");
         return arr[0];
     }
-    int set_elem(int index, int value) {
-        arr[index] += value;
-        return sift_up(index);
-    }
-    void print() {
-        for (int i = 0; i < n; i++)
-            cout << arr[i] << " ";
-    }
 };
-
-int main() {
-    int n;
-    cin >> n;
-    Heap<int> h(n);
-    int cur;
-    h.build();
-    int m, f, s;
-    cin >> m;
-    for (int i = 0; i < m; i++) {
-        cin >> f >> s;
-        cout << h.set_elem(f - 1, s) + 1 << "\n";
-    }
-    h.print();
-}
