@@ -10,6 +10,19 @@ public:
     List() {
         start = nullptr;
     }
+    /*~List() {
+        Node<T>* cur = start;
+        while (cur != nullptr) {
+            Node<T>* next = cur->next;
+            delete cur;
+            cur = next;
+        }
+        delete cur;
+    }*/
+    template<typename Type>
+    List(const List<Type>& b) {
+        start = b.start;
+    }
     void push_back(T value) {
         Node<T>* new_elem = new Node<T>(value);
         if (empty())
@@ -119,29 +132,90 @@ public:
         }
     }
 
-    template<typename Type> List<Type> operator+(const List<Type>& b) {
-        List<Type> ans;
-        Node<Type>* cur = start;
+    
+
+    int size() {
+        Node<T>* cur = start;
+        int ans = 0;
         while (cur) {
-            ans.push_back(cur->value);
             cur = cur->next;
-        }
-        cur = b.start;
-        while (cur) {
-            ans.push_back(cur->value);
-            cur = cur->next;
+            ans++;
         }
         return ans;
     }
 
+    void sort() {
+        int power = 1, n = size();
+        while (power < n) {
+            List<T> ans;
+            Node<T>* first = start, * second = start;
+            for (int j = 0; j < power && second; j++)
+                second = second->next;
+            int ind_f = 0, ind_s = power;
+            while (ind_s != n) {
+                int ind2_f = ind_s, ind2_s = min(ind_s + power, n);
+                while (ind_f != ind2_f || ind_s != ind2_s) {
+                    if (ind_f == ind2_f) {
+                        ind_s++;
+                        ans.push_back(second->value);
+                        second = second->next;
+                    }
+                    else if (ind_s == ind2_s) {
+                        ind_f++;
+                        ans.push_back(first->value);
+                        first = first->next;
+                    }
+                    else {
+                        if (first->value < second->value) {
+                            ans.push_back(first->value);
+                            ind_f++;
+                            first = first->next;
+                        }
+                        else {
+                            ans.push_back(second->value);
+                            ind_s++;
+                            second = second->next;
+                        }
+                    }
+                }
+                first = second;
+                ind_f = ind_s;
+                ind_s += power;
+                for (int j = 0; j < power && second; j++)
+                    second = second->next;
+                cout << ans << "\n";
+            }
+            power <<= 1;
+        }
+    }
+
     template<typename Type>
     friend ostream& operator<<(ostream&, const List<Type>&);
+
+    template<typename Type>
+    friend List<Type> operator+(const List<Type>&, const List<Type>&);
 };
+
+template<typename Type> 
+List<Type> operator+(const List<Type>& a, const List<Type>& b) {
+    List<Type> ans;
+    Node<Type>* cur = a.start;
+    while (cur) {
+        ans.push_back(cur->value);
+        cur = cur->next;
+    }
+    cur = b.start;
+    while (cur) {
+        ans.push_back(cur->value);
+        cur = cur->next;
+    }
+    return ans;
+}
 
 template<typename Type>
 ostream& operator<<(ostream& output, const List<Type>& arr) {
     Node<Type>* cur = arr.start;
-    while (cur) {
+    while (cur != nullptr) {
         output << cur->value << " ";
         cur = cur->next;
     }

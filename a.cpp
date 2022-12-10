@@ -4,8 +4,6 @@
 using namespace std;
 
 int main() {
-    int n = 9;
-    cin >> n;
     List<int> arr;
     arr.push_back(3);
     arr.push_back(6);
@@ -25,9 +23,15 @@ int main() {
     arr2.push_back(7);
     arr2.push_front(-1);
     arr2.push_front(-6);
+    cout << "----";
+    cout << arr << "----\n";
+    cout << "----";
+    cout << arr2 << "----\n";    
     List<int> arr3 = arr + arr2;
     cout << arr3 << "\n";
     arr3.pop_back();
     arr3.pop_front();
     cout << arr3 << "\n";
+    arr3.sort();
+    cout << arr3;
 }
