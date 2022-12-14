@@ -1,37 +1,66 @@
 #include <iostream>
-#include "List.h"
+#include <vector>
 
 using namespace std;
 
+void quick_sort(int l, int r, vector<int>& arr) {
+    if (r - l == 0)
+        return;
+    if (r - l == 1) {
+        if (arr[l] > arr[r])
+            swap(arr[l], arr[r]);
+        return;
+    }
+    int l1 = l, r1 = r;
+    int pivot = arr[(r + l) / 2];
+    while (r >= l) {
+        if (arr[l] >= pivot && arr[r] <= pivot) {
+            swap(arr[l], arr[r]);
+            l++;
+            r--;
+            continue;
+        }
+        if (arr[l] <= pivot)
+            l++;
+        if (arr[r] >= pivot)
+            r--;
+    }
+    quick_sort(l1, r, arr);
+    quick_sort(l, r1, arr);
+}
+
+void merge_sort(vector<int>& arr, int l, int r) {
+    if (r == l)
+        return;
+    int mid = (l + r) / 2;
+    merge_sort(arr, l, mid);
+    merge_sort(arr, mid + 1, r);
+    int f = l, s = mid + 1;
+    vector<int> cur;
+    while (f <= mid || s <= r) {
+        if (f == mid + 1)
+            cur.push_back(arr[s++]);
+        else if (s == r + 1)
+            cur.push_back(arr[f++]);
+        else {
+            if (arr[f] < arr[s])
+                cur.push_back(arr[f++]);
+            else
+                cur.push_back(arr[s++]);
+        }
+    }
+    for (int i = 0; i < (int)cur.size(); i++)
+        arr[l + i] = cur[i];
+}
+
 int main() {
-    List<int> arr;
-    arr.push_back(3);
-    arr.push_back(6);
-    arr.push_back(2);
-    cout << arr << "\n";
-    arr.push_front(5);
-    arr.push_front(7);
-    cout << arr << "\n";
-    Node<int>* f = arr.find(3);
-    cout << f->value << "\n";
-    arr.insert(10, f);
-    cout << arr << "\n";
-    arr.pop(f);
-    cout << arr << "\n";
-    List<int> arr2;
-    arr2.push_back(3);
-    arr2.push_back(7);
-    arr2.push_front(-1);
-    arr2.push_front(-6);
-    cout << "----";
-    cout << arr << "----\n";
-    cout << "----";
-    cout << arr2 << "----\n";    
-    List<int> arr3 = arr + arr2;
-    cout << arr3 << "\n";
-    arr3.pop_back();
-    arr3.pop_front();
-    cout << arr3 << "\n";
-    arr3.sort();
-    cout << arr3;
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+    merge_sort(arr, 0, n - 1);
+    for (int u : arr)
+        cout << u << " ";
+
 }
