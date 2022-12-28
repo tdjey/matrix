@@ -30,7 +30,7 @@ public:
         while (x < n) {
             int index = x;
             if (x * 2 + 2 < n) {
-                if (arr[x * 2 + 1] > arr[x * 2 + 2])
+                if (arr[x * 2 + 1] >= arr[x * 2 + 2])
                     index = x * 2 + 1;
                 else
                     index = x * 2 + 2;
@@ -85,11 +85,12 @@ int main() {
     Heap<int> h(n);
     int cur;
     h.build();
-    int m, f, s;
-    cin >> m;
-    for (int i = 0; i < m; i++) {
-        cin >> f >> s;
-        cout << h.set_elem(f - 1, s) + 1 << "\n";
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) {
+        arr[i] = h.get_max();
+        h.delete_max();
     }
-    h.print();
+    reverse(arr.begin(), arr.end());
+    for (int u : arr)
+        cout << u << " ";
 }
