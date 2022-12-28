@@ -1,0 +1,21 @@
+Используя питоновский скрипт, получаем список названий сортировок programs.txt, аналогичным способом формируется список генераторов gens.txt.
+
+>>> with open("programs.txt", "w") as f:
+...     print(*list(map(lambda x: x.strip(".cpp"), os.listdir("./programs"))), file=f)
+
+
+Другой скрипт компилировал файлы сортировок.
+
+>>> for i in os.listdir("./programs"):                   
+...     os.system("g++ programs/" + i + " -o compiled/" + i.strip(".cpp") + ".exe")
+
+Все запускаемые файлы находятся в папке compiled
+
+Тестирование проводилось на 3 различных размерах с 3 ограничениями на модуль элементов:
+
+N\Mod 1000 1e5 1e9
+1000
+1e5
+1e7
+
+

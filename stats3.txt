@@ -1,0 +1,299 @@
+builtin_sort
+almost_sorted_gen:
+    array size: 1000
+        small elements: (1000) 0 0.001 0 
+        med elements: (1000) 0.002 0 0.001 
+        large elements: (100000) 0 0 0 
+    array size: 100000
+        small elements: (1000) 0.032 0.035 0.035 
+        med elements: (1000) 0.042 0.043 0.044 
+        large elements: (100000) 0.044 0.037 0.036 
+    array size: 10000000
+        small elements: (1000) 7.546 7.215 5.74 
+        med elements: (1000) 6.646 6.03 8.326 
+        large elements: (100000) 7.596 4.904 4.865 
+random_gen:
+    array size: 1000
+        small elements: (1000) 0 0 0 
+        med elements: (1000) 0.001 0 0.001 
+        large elements: (100000) 0.001 0 0.001 
+    array size: 100000
+        small elements: (1000) 0.04 0.034 0.051 
+        med elements: (1000) 0.064 0.054 0.046 
+        large elements: (100000) 0.043 0.038 0.06 
+    array size: 10000000
+        small elements: (1000) 4.458 4.752 4.418 
+        med elements: (1000) 4.989 4.609 4.657 
+        large elements: (100000) 5.127 5.099 5.299 
+reverse_gen:
+    array size: 1000
+        small elements: (1000) 0 0 0.001 
+        med elements: (1000) 0 0 0 
+        large elements: (100000) 0 0.001 0.001 
+    array size: 100000
+        small elements: (1000) 0.02 0.022 0.023 
+        med elements: (1000) 0.022 0.024 0.024 
+        large elements: (100000) 0.022 0.02 0.017 
+    array size: 10000000
+        small elements: (1000) 3.363 3.414 3.397 
+        med elements: (1000) 3.117 2.595 2.688 
+        large elements: (100000) 2.369 2.361 2.355 
+sorted_gen:
+    array size: 1000
+        small elements: (1000) 0 0.001 0.001 
+        med elements: (1000) 0 0 0 
+        large elements: (100000) 0 0 0.001 
+    array size: 100000
+        small elements: (1000) 0.026 0.026 0.027 
+        med elements: (1000) 0.032 0.032 0.031 
+        large elements: (100000) 0.031 0.03 0.035 
+    array size: 10000000
+        small elements: (1000) 5.139 4.298 4.216 
+        med elements: (1000) 3.359 3.522 3.43 
+        large elements: (100000) 4.395 4.109 4.398 
+heap_sort
+almost_sorted_gen:
+    array size: 1000
+        small elements: (1000) 0 0 0.001 
+        med elements: (1000) 0.001 0.001 0.001 
+        large elements: (100000) 0.001 0.001 0 
+    array size: 100000
+        small elements: (1000) 0.059 0.061 0.063 
+        med elements: (1000) 0.069 0.069 0.071 
+        large elements: (100000) 0.072 0.059 0.067 
+    array size: 10000000
+        small elements: (1000) 8.908 9.983 12.916 
+        med elements: (1000) 15.006 14.449 15.895 
+        large elements: (100000) 16.879 10.149 10.165 
+random_gen:
+    array size: 1000
+        small elements: (1000) 0.001 0.001 0.001 
+        med elements: (1000) 0 0 0 
+        large elements: (100000) 0 0.001 0 
+    array size: 100000
+        small elements: (1000) 0.062 0.064 0.069 
+        med elements: (1000) 0.069 0.071 0.074 
+        large elements: (100000) 0.073 0.088 0.062 
+    array size: 10000000
+        small elements: (1000) 8.942 9.075 9.15 
+        med elements: (1000) 10.338 10.341 10.306 
+        large elements: (100000) 10.48 10.501 10.677 
+reverse_gen:
+    array size: 1000
+        small elements: (1000) 0.001 0 0 
+        med elements: (1000) 0 0.001 0.001 
+        large elements: (100000) 0 0 0.001 
+    array size: 100000
+        small elements: (1000) 0.056 0.059 0.06 
+        med elements: (1000) 0.063 0.066 0.063 
+        large elements: (100000) 0.065 0.056 0.059 
+    array size: 10000000
+        small elements: (1000) 7.881 7.567 7.461 
+        med elements: (1000) 7.534 7.575 7.541 
+        large elements: (100000) 7.545 7.553 7.515 
+sorted_gen:
+    array size: 1000
+        small elements: (1000) 0 0.001 0 
+        med elements: (1000) 0 0.002 0.001 
+        large elements: (100000) 0 0.001 0.001 
+    array size: 100000
+        small elements: (1000) 0.051 0.06 0.057 
+        med elements: (1000) 0.058 0.06 0.06 
+        large elements: (100000) 0.059 0.055 0.053 
+    array size: 10000000
+        small elements: (1000) 7.051 7.095 7.195 
+        med elements: (1000) 7.449 7.257 7.346 
+        large elements: (100000) 7.262 7.255 7.261 
+merge_sort
+almost_sorted_gen:
+    array size: 1000
+        small elements: (1000) 0.002 0.002 0.002 
+        med elements: (1000) 0.003 0.002 0.002 
+        large elements: (100000) 0.003 0.001 0.002 
+    array size: 100000
+        small elements: (1000) 0.168 0.178 0.174 
+        med elements: (1000) 0.198 0.187 0.191 
+        large elements: (100000) 0.191 0.17 0.162 
+    array size: 10000000
+        small elements: (1000) 17.843 18.126 17.843 
+        med elements: (1000) 18.42 18.576 18.352 
+        large elements: (100000) 18.619 18.606 18.989 
+random_gen:
+    array size: 1000
+        small elements: (1000) 0.003 0.001 0.002 
+        med elements: (1000) 0.003 0.003 0.002 
+        large elements: (100000) 0.002 0.003 0.002 
+    array size: 100000
+        small elements: (1000) 0.182 0.19 0.208 
+        med elements: (1000) 0.197 0.271 0.234 
+        large elements: (100000) 0.254 0.194 0.162 
+    array size: 10000000
+        small elements: (1000) 18.246 18.273 18.249 
+        med elements: (1000) 18.929 18.787 18.418 
+        large elements: (100000) 18.851 18.942 18.649 
+reverse_gen:
+    array size: 1000
+        small elements: (1000) 0.003 0.002 0.003 
+        med elements: (1000) 0.003 0.003 0.002 
+        large elements: (100000) 0.002 0.002 0.005 
+    array size: 100000
+        small elements: (1000) 0.152 0.17 0.166 
+        med elements: (1000) 0.174 0.169 0.165 
+        large elements: (100000) 0.166 0.148 0.148 
+    array size: 10000000
+        small elements: (1000) 16.524 16.845 16.843 
+        med elements: (1000) 16.536 16.623 16.957 
+        large elements: (100000) 16.531 16.672 16.708 
+sorted_gen:
+    array size: 1000
+        small elements: (1000) 0.002 0.002 0.002 
+        med elements: (1000) 0.002 0.002 0.001 
+        large elements: (100000) 0.004 0.001 0.002 
+    array size: 100000
+        small elements: (1000) 0.15 0.155 0.161 
+        med elements: (1000) 0.172 0.169 0.168 
+        large elements: (100000) 0.166 0.149 0.138 
+    array size: 10000000
+        small elements: (1000) 17.125 18.877 16.911 
+        med elements: (1000) 17.119 16.72 17.415 
+        large elements: (100000) 17.554 16.73 16.651 
+quick_sort
+almost_sorted_gen:
+    array size: 1000
+        small elements: (1000) 0 0.001 0.001 
+        med elements: (1000) 0.001 0 0.001 
+        large elements: (100000) 0 0 0 
+    array size: 100000
+        small elements: (1000) 0.034 0.038 0.043 
+        med elements: (1000) 0.047 0.046 0.045 
+        large elements: (100000) 0.041 0.03 0.034 
+    array size: 10000000
+        small elements: (1000) 3.513 3.375 3.252 
+        med elements: (1000) 3.734 3.829 5.037 
+        large elements: (100000) 4.294 4.306 4.228 
+random_gen:
+    array size: 1000
+        small elements: (1000) 0.001 0 0 
+        med elements: (1000) 0 0.001 0.001 
+        large elements: (100000) 0 0.001 0 
+    array size: 100000
+        small elements: (1000) 0.028 0.028 0.029 
+        med elements: (1000) 0.04 0.039 0.04 
+        large elements: (100000) 0.041 0.035 0.034 
+    array size: 10000000
+        small elements: (1000) 3.24 3.347 3.286 
+        med elements: (1000) 3.974 4.018 3.865 
+        large elements: (100000) 4.586 4.491 4.532 
+reverse_gen:
+    array size: 1000
+        small elements: (1000) 0 0 0 
+        med elements: (1000) 0.001 0 0 
+        large elements: (100000) 0 0 0 
+    array size: 100000
+        small elements: (1000) 0.013 0.013 0.015 
+        med elements: (1000) 0.011 0.012 0.012 
+        large elements: (100000) 0.011 0.009 0.01 
+    array size: 10000000
+        small elements: (1000) 1.909 1.893 1.869 
+        med elements: (1000) 1.491 1.505 1.5 
+        large elements: (100000) 1.186 1.186 1.158 
+sorted_gen:
+    array size: 1000
+        small elements: (1000) 0 0.001 0 
+        med elements: (1000) 0 0 0.001 
+        large elements: (100000) 0 0 0 
+    array size: 100000
+        small elements: (1000) 0.016 0.016 0.017 
+        med elements: (1000) 0.014 0.013 0.014 
+        large elements: (100000) 0.016 0.009 0.01 
+    array size: 10000000
+        small elements: (1000) 2.095 1.826 1.841 
+        med elements: (1000) 1.468 1.455 1.435 
+        large elements: (100000) 1.119 1.131 1.103 
+quick_sort_optimized
+almost_sorted_gen:
+    array size: 1000
+        small elements: (1000) 0 0 0.001 
+        med elements: (1000) 0 0 0 
+        large elements: (100000) 0 0.001 0 
+    array size: 100000
+        small elements: (1000) 0.027 0.027 0.029 
+        med elements: (1000) 0.043 0.037 0.038 
+        large elements: (100000) 0.035 0.031 0.031 
+    array size: 10000000
+        small elements: (1000) 3.329 3.295 3.346 
+        med elements: (1000) 3.783 3.97 3.839 
+        large elements: (100000) 4.513 4.414 4.65 
+random_gen:
+    array size: 1000
+        small elements: (1000) 0.001 0 0.001 
+        med elements: (1000) 0 0.001 0 
+        large elements: (100000) 0.001 0 0 
+    array size: 100000
+        small elements: (1000) 0.027 0.03 0.029 
+        med elements: (1000) 0.04 0.039 0.039 
+        large elements: (100000) 0.04 0.033 0.052 
+    array size: 10000000
+        small elements: (1000) 3.399 
+
+
+opt quick sort is not ready
+
+stable_sort
+almost_sorted_gen:
+    array size: 1000
+        small elements: (1000)    
+        med elements: (1000)    
+        large elements: (100000) stable_sort
+almost_sorted_gen:
+    array size: 1000
+        small elements: (1000) 0 0 0 
+        med elements: (1000) 0.001 0 0.001 
+        large elements: (100000) 0.002 0 0.002 
+    array size: 100000
+        small elements: (1000) 0.041 0.042 0.048 
+        med elements: (1000) 0.053 0.053 0.056 
+        large elements: (100000) 0.056 0.042 0.047 
+    array size: 10000000
+        small elements: (1000) 5.037 5.029 5.464 
+        med elements: (1000) 5.538 5.755 5.687 
+        large elements: (100000) 5.703 6.087 5.619 
+random_gen:
+    array size: 1000
+        small elements: (1000) 0.002 0.001 0 
+        med elements: (1000) 0.001 0.001 0 
+        large elements: (100000) 0.001 0.001 0 
+    array size: 100000
+        small elements: (1000) 0.046 0.042 0.047 
+        med elements: (1000) 0.061 0.08 0.064 
+        large elements: (100000) 0.059 0.048 0.071 
+    array size: 10000000
+        small elements: (1000) 5.171 5.049 5.045 
+        med elements: (1000) 5.668 5.527 5.545 
+        large elements: (100000) 5.818 5.799 5.804 
+reverse_gen:
+    array size: 1000
+        small elements: (1000) 0 0.001 0 
+        med elements: (1000) 0.001 0 0 
+        large elements: (100000) 0.001 0.001 0 
+    array size: 100000
+        small elements: (1000) 0.025 0.04 0.031 
+        med elements: (1000) 0.033 0.034 0.053 
+        large elements: (100000) 0.033 0.022 0.024 
+    array size: 10000000
+        small elements: (1000) 2.564 2.571 2.553 
+        med elements: (1000) 2.578 3.287 2.546 
+        large elements: (100000) 2.727 2.733 2.821 
+sorted_gen:
+    array size: 1000
+        small elements: (1000) 0.001 0 0 
+        med elements: (1000) 0 0 0 
+        large elements: (100000) 0 0 0 
+    array size: 100000
+        small elements: (1000) 0.018 0.02 0.022 
+        med elements: (1000) 0.023 0.026 0.026 
+        large elements: (100000) 0.027 0.018 0.017 
+    array size: 10000000
+        small elements: (1000) 2.381 2.396 3.855 
+        med elements: (1000) 2.409 2.417 2.439 
+        large elements: (100000) 2.372 2.384 2.428 

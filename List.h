@@ -132,7 +132,14 @@ public:
         }
     }
 
-    
+    void clear() {
+        Node<T>* cur = start;
+        while (cur) {
+            Node<T>* next = cur->next;
+            delete cur;
+            cur = next;
+        }
+    }
 
     int size() {
         Node<T>* cur = start;
@@ -153,7 +160,7 @@ public:
                 second = second->next;
             int ind_f = 0, ind_s = power;
             while (ind_s != n) {
-                int ind2_f = ind_s, ind2_s = min(ind_s + power, n);
+                int ind2_f = ind_s, ind2_s = min(ind_s + power, n - 1);
                 while (ind_f != ind2_f || ind_s != ind2_s) {
                     if (ind_f == ind2_f) {
                         ind_s++;
@@ -185,7 +192,12 @@ public:
                     second = second->next;
                 cout << ans << "\n";
             }
+            while (second)
+                second = second->next;
+            clear();
+            start = ans.start;
             power <<= 1;
+            
         }
     }
 

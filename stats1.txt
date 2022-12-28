@@ -1,0 +1,17 @@
+builtin_sort
+almost_sorted_gen:
+    small elements: 4.319 4.312 4.257 
+    med elements: 4.83 4.746 4.8 
+    large elements: 4.647 4.86 13.949 
+random_gen:
+    small elements: 11.488 12.654 14.066 
+    med elements: 8.433 5.2 4.944 
+    large elements: 5.102 5.136 5.211 
+reverse_gen:
+    small elements: 3.358 3.318 3.331 
+    med elements: 4.599 2.555 2.541 
+    large elements: 2.323 2.318 2.331 
+sorted_gen:
+    small elements: 3.168 3.189 3.202 
+    med elements: 2.732 4.165 4.832 
+    large elements: 4.193 3.105 4.349 

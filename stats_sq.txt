@@ -1,0 +1,14 @@
+bubble_sort
+almost_sorted_gen:
+    array size: 1000
+        small elements: (1000) 0.011 0.009 0.009 
+        med elements: (1000) 0.009 0.012 0.009 
+    array size: 100000
+        small elements: (1000) 88.125 88.959 85.6 
+        med elements: (1000) 86.415 88.433 86.658 
+random_gen:
+    array size: 1000
+        small elements: (1000) 0.011 0.01 0.011 
+        med elements: (1000) 0.011 0.012 0.014 
+    array size: 100000
+        small elements: (1000) 92.046 

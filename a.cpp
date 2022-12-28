@@ -1,66 +1,91 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <string>
+#include <cstring>
 
 using namespace std;
 
-void quick_sort(int l, int r, vector<int>& arr) {
-    if (r - l == 0)
-        return;
-    if (r - l == 1) {
-        if (arr[l] > arr[r])
-            swap(arr[l], arr[r]);
-        return;
+int TESTS = 3, ELEM = 1e7, SMALL = 1000, MED = 1e5, LARGE = 1e9;
+int SIZE[3] = {1000, 10000, (int)1e7};
+
+bool check() {
+    ifstream input;
+    input.open("compiled/check.txt");
+    int prev_, cur;
+    input >> prev_;
+    for (int i = 1; i < ELEM; i++) {
+        input >> cur;
+        if (cur < prev_)
+            return false;
     }
-    int l1 = l, r1 = r;
-    int pivot = arr[(r + l) / 2];
-    while (r >= l) {
-        if (arr[l] >= pivot && arr[r] <= pivot) {
-            swap(arr[l], arr[r]);
-            l++;
-            r--;
-            continue;
-        }
-        if (arr[l] <= pivot)
-            l++;
-        if (arr[r] >= pivot)
-            r--;
-    }
-    quick_sort(l1, r, arr);
-    quick_sort(l, r1, arr);
+    return true;
 }
 
-void merge_sort(vector<int>& arr, int l, int r) {
-    if (r == l)
-        return;
-    int mid = (l + r) / 2;
-    merge_sort(arr, l, mid);
-    merge_sort(arr, mid + 1, r);
-    int f = l, s = mid + 1;
-    vector<int> cur;
-    while (f <= mid || s <= r) {
-        if (f == mid + 1)
-            cur.push_back(arr[s++]);
-        else if (s == r + 1)
-            cur.push_back(arr[f++]);
-        else {
-            if (arr[f] < arr[s])
-                cur.push_back(arr[f++]);
-            else
-                cur.push_back(arr[s++]);
+void print(string msg, int tabs = 0) {
+    ofstream out;
+    out.open("compiled/stats.txt", ios_base::app);
+    for (int i = 0; i < tabs * 4; i++)
+        out << " ";
+    out << msg;
+    out.close();
+}
+
+void run_cmd(string cmd, string path = "") {
+    string test = "cd " + path + " && " + cmd;
+    if (path != "")
+        system(("cd " + path + " && " + cmd).c_str());
+    else
+        system(cmd.c_str());
+}
+
+void test(string prog, vector<string>& gens) {
+    print(prog + "\n");
+    for (string gen : gens) {
+        print(gen + ":\n");
+        string cmd;
+        for (int k = 0; k < 2; k++) {
+            print("array size: " + to_string(SIZE[k]) + "\n", 1);
+            for (int j = 0; j < 2; j++) {
+                if (j == 0) {
+                    ELEM = SMALL;
+                    print("small elements: (" + to_string(ELEM) + ") ", 2);
+                }
+                else if (j == 1) {
+                    print("med elements: (" + to_string(ELEM) + ") ", 2);
+                    ELEM = MED;
+                }
+                for (int i = 0; i < TESTS; i++) {
+                    cmd = gen + ".exe " + to_string(SIZE[k]) + " " + to_string(ELEM);
+                    run_cmd(cmd, "compiled");
+                    cmd = "<nul set /p  =|" + prog + ".exe >> stats.txt";
+                    run_cmd(cmd, "compiled");
+                    if (!check())
+                        print("!!list is not sorted!!");
+                    print(" ");
+                }
+                print("\n");
+            }
         }
+        
     }
-    for (int i = 0; i < (int)cur.size(); i++)
-        arr[l + i] = cur[i];
 }
 
 int main() {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    merge_sort(arr, 0, n - 1);
-    for (int u : arr)
-        cout << u << " ";
-
+    vector<string> programs, gens;
+    ifstream input;
+    input.open("square_programs.txt");
+    string cur;
+    while (input >> cur) 
+        if (cur != "") 
+            programs.push_back(cur);
+    input.close();
+    input.open("gens.txt");
+    while (input >> cur)
+        if (cur != "")
+            gens.push_back(cur);
+    input.close();
+    for (int i = 0; i < (int)programs.size(); i++) 
+        test(programs[i], gens);
 }
