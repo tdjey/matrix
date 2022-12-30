@@ -1,37 +1,81 @@
 #include <iostream>
 #include "List.h"
+#include <string>
+#include <random>
+#include <ctime>
 
 using namespace std;
 
+mt19937 rnd(time(0));
+
 int main() {
     List<int> arr;
-    arr.push_back(3);
-    arr.push_back(6);
-    arr.push_back(2);
-    cout << arr << "\n";
-    arr.push_front(5);
-    arr.push_front(7);
-    cout << arr << "\n";
-    Node<int>* f = arr.find(3);
-    cout << f->value << "\n";
-    arr.insert(10, f);
-    cout << arr << "\n";
-    arr.pop(f);
-    cout << arr << "\n";
-    List<int> arr2;
-    arr2.push_back(3);
-    arr2.push_back(7);
-    arr2.push_front(-1);
-    arr2.push_front(-6);
-    cout << "----";
-    cout << arr << "----\n";
-    cout << "----";
-    cout << arr2 << "----\n";    
-    List<int> arr3 = arr + arr2;
-    cout << arr3 << "\n";
-    arr3.pop_back();
-    arr3.pop_front();
-    cout << arr3 << "\n";
-    arr3.sort();
-    cout << arr3;
+    cout << "Hello there, test my brand new one-linked-list:\n";
+    cout << "1 - is list empty\n2 x - insert element to the start\n";
+    cout << "3 x - insert element to the end\n4 - delete first element\n";
+    cout << "5 - delete last element\n6 x - delete first element with value equal to x\n";
+    cout << "7 x - is there an element with value x\n8 - end\n";
+    cout << "---Have fun!---\n";
+    string cmd;
+    while (true) {
+        cin >> cmd;
+        try {
+            int int_cmd = stoi(cmd), arg;
+            string s_arg;
+            Node<int>* it;
+            if (int_cmd <= 0 || int_cmd > 12)
+                throw string("You skipped the options bar, didn't you?");
+            switch (int_cmd) {
+            case 1:
+                if (arr.empty())
+                    cout << "Yes\n";
+                else
+                    cout << "No\n";
+                break;
+            case 2:
+                cin >> s_arg;
+                arg = stoi(s_arg);
+                arr.push_front(arg);
+                break;
+            case 3:
+                cin >> s_arg;
+                arg = stoi(s_arg);
+                arr.push_back(arg);
+                break;
+            case 4:
+                arr.pop_front();
+                break;
+            case 5:
+                arr.pop_back();
+                break;
+            case 6:
+                cin >> s_arg;
+                arg = stoi(s_arg);
+                 it = arr.find(arg);
+                if (it)
+                    arr.pop(it);
+                else 
+                    throw string("No element with given value was found");
+                break;
+            case 7:
+                cin >> s_arg;
+                arg = stoi(s_arg);
+                if (arr.find(arg))
+                    cout << "Yes\n";
+                else
+                    cout << "No\n";
+                break;
+            case 8:
+                cout << "Bye\n";
+                return 0;                
+            }
+            cout << arr << "\n";
+        }
+        catch (string e) {
+            cout << e << "\n";
+        }
+        catch (...) {
+            cout << "Problems while parsing, please enter correct values :/ !\n";
+        }
+    }
 }
