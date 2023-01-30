@@ -1,0 +1,75 @@
+sorted_gen:
+stable:
+    array size: 1000
+        small elements: (1000) 0.001 0 0 
+        med elements: (1000) 0 0 0 
+        large elements: (100000) 0 0 0 
+    array size: 100000
+        small elements: (1000) 0.018 0.02 0.022 
+        med elements: (1000) 0.023 0.026 0.026 
+        large elements: (100000) 0.027 0.018 0.017 
+    array size: 10000000
+        small elements: (1000) 2.381 2.396 3.855 
+        med elements: (1000) 2.409 2.417 2.439 
+        large elements: (100000) 2.372 2.384 2.428 
+
+
+quick
+array size: 1000
+        small elements: (1000) 0 0.001 0 
+        med elements: (1000) 0 0 0.001 
+        large elements: (100000) 0 0 0 
+    array size: 100000
+        small elements: (1000) 0.016 0.016 0.017 
+        med elements: (1000) 0.014 0.013 0.014 
+        large elements: (100000) 0.016 0.009 0.01 
+    array size: 10000000
+        small elements: (1000) 2.095 1.826 1.841 
+        med elements: (1000) 1.468 1.455 1.435 
+        large elements: (100000) 1.119 1.131 1.103 
+
+merge
+array size: 1000
+        small elements: (1000) 0.002 0.002 0.002 
+        med elements: (1000) 0.002 0.002 0.001 
+        large elements: (100000) 0.004 0.001 0.002 
+    array size: 100000
+        small elements: (1000) 0.15 0.155 0.161 
+        med elements: (1000) 0.172 0.169 0.168 
+        large elements: (100000) 0.166 0.149 0.138 
+    array size: 10000000
+        small elements: (1000) 17.125 18.877 16.911 
+        med elements: (1000) 17.119 16.72 17.415 
+        large elements: (100000) 17.554 16.73 16.651
+
+heap
+array size: 1000
+        small elements: (1000) 0 0.001 0 
+        med elements: (1000) 0 0.002 0.001 
+        large elements: (100000) 0 0.001 0.001 
+    array size: 100000
+        small elements: (1000) 0.051 0.06 0.057 
+        med elements: (1000) 0.058 0.06 0.06 
+        large elements: (100000) 0.059 0.055 0.053 
+    array size: 10000000
+        small elements: (1000) 7.051 7.095 7.195 
+        med elements: (1000) 7.449 7.257 7.346 
+        large elements: (100000) 7.262 7.255 7.261 
+builtin
+array size: 1000
+        small elements: (1000) 0 0.001 0.001 
+        med elements: (1000) 0 0 0 
+        large elements: (100000) 0 0 0.001 
+    array size: 100000
+        small elements: (1000) 0.026 0.026 0.027 
+        med elements: (1000) 0.032 0.032 0.031 
+        large elements: (100000) 0.031 0.03 0.035 
+    array size: 10000000
+        small elements: (1000) 5.139 4.298 4.216 
+        med elements: (1000) 3.359 3.522 3.43 
+        large elements: (100000) 4.395 4.109 4.398
+
+Лучший результат: quick_sort (нет ни одного swap, тк все отсортировано, отсюда и быстрая скорость работы)
+Худший результат: merge_sort (плохая реализация)
+heap: долго, тк реализация через класс
+stable справилась лучше обычной встроенной
