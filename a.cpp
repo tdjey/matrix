@@ -1,8 +1,9 @@
-#define _CRT_SECURE_NO_WARNINGS
+//#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
 #include <map>
 #include <string>
+#include <set>
 
 using namespace std;
 
@@ -10,9 +11,12 @@ using namespace std;
 typedef pair<int, int> pii;
 
 map<string, int> operations
-{ {"*", 1}, {"+", 1}, {"-", 1}, {"/", 1} };
+{ {"*", 2}, {"+", 1}, {"-", 1}, {"/", 2},
+  {"sin", 5}, {"sqrt", 5}, {"cos", 5},
+  {"abs", 5} };
+set<string> need_brackets{ "sqrt", "sin" };
 
-int INF = 100;
+int INF = 1e4;
 
 struct Node {
     string sym = "";
@@ -24,21 +28,29 @@ struct Node {
 void print_inf(Node* root) {
     if (root->right && !root->left) {
         cout << root->sym;
-        print_inf(root->right);
+        if (need_brackets.find(root->sym)
+            != need_brackets.end()) {
+            cout << "(";
+            print_inf(root->right);
+            cout << ")";
+        }
+        else
+            print_inf(root->right);
         return;
     }
     if (!root->left && !root->right) {
         cout << root->sym;
         return;
     }
-    if (root->left && root->right)
+
+    if ((root->left && root->right))
         cout << "(";
     if (root->left)
         print_inf(root->left);
     cout << " " << root->sym << " ";
     if (root->right)
         print_inf(root->right);
-    if (root->left && root->right)
+    if ((root->left && root->right))
         cout << ")";
 }
 
@@ -71,7 +83,7 @@ pii query(vector<pii>& seg_tree, int v, int l, int r, int lq, int rq) {
     return right;
 }
 
-Node* calc_inf(string& s, vector<pii>& seg_tree, int l, int r) {
+Node* calc_inf(vector<string>& s, vector<pii>& seg_tree, int l, int r) {
     if (r == l)
         return nullptr;
     Node* cur = new Node();
@@ -88,33 +100,63 @@ Node* calc_inf(string& s, vector<pii>& seg_tree, int l, int r) {
     return cur;
 }
 
+bool is_sep(char c) {
+    if (c == '(' || c == ')' || c == ' ')
+        return true;
+    string sc = "";
+    sc += c;
+    if (operations.find(sc) != operations.end())
+        return true;
+    return false;
+}
+
 Node* build_inf_tree(const string& s) {
     vector<int> order;
-    string new_s;
-    int n = sz(s), balance = 0;
+    int n = sz(s);
+    vector<string> cond{ "" };
     for (int i = 0; i < n; i++) {
-        if (s[i] == ' ')
-            continue;
-        if (s[i] == '(') {
+        if (is_sep(s[i]) && cond.back() != "")
+            cond.push_back("");
+        if (s[i] != ' ')
+            cond.back() += s[i];
+        if (is_sep(s[i]) && cond.back() != "")
+            cond.push_back("");
+    }
+    if (cond.back() == "")
+        cond.pop_back();
+    n = sz(cond);
+    int balance = 0;
+    vector<string> new_cond;
+    bool prev_oper = true;
+    for (int i = 0; i < n; i++) {
+        if (cond[i] == "(") {
             balance++;
             continue;
         }
-        if (s[i] == ')') {
+        if (cond[i] == ")") {
             balance--;
             continue;
         }
-        new_s.push_back(s[i]);
-        if (s[i] >= '0' && s[i] <= '9')
+        new_cond.push_back(cond[i]);
+        auto it = operations.find(cond[i]);
+        if (it != operations.end()) {
+            if (prev_oper)
+                order.push_back(it->second + balance * 10 + 2);
+            else
+                order.push_back(it->second + balance * 10);
+            prev_oper = true;
+        }
+        else {
             order.push_back(INF);
-        else
-            order.push_back(operations["" + s[i]] + balance * 10);
+            prev_oper = false;
+        }
     }
     int x = 1;
     while (x <= sz(order))
         x <<= 1;
     vector<pii> seg_tree(2 * x);
     build_seg_tree(seg_tree, order);
-    Node* root = calc_inf(new_s, seg_tree, 0, sz(order));
+    Node* root = calc_inf(new_cond, seg_tree, 0, sz(order));
     return root;
 }
 
@@ -142,23 +184,6 @@ Node* build_postfix_tree(const string& s) {
     return calc_postfix(cond, last_ind);
 }
 
-void print_postfix(Node* root) {
-    if (root->left && root->right) {
-        print_postfix(root->right);
-        print_postfix(root->left);
-        cout << root->sym << " ";
-    }
-    else if (root->left) {
-        cout << root->sym;
-        print_postfix(root->left);
-    }
-    else if (root->right) {
-        cout << root->sym;
-        print_postfix(root->right);
-    }
-    else
-        cout << root->sym << " ";
-}
 
 Node* calc_prefix(vector<string>& arr, int index) {
     Node* cur = new Node();
@@ -169,6 +194,24 @@ Node* calc_prefix(vector<string>& arr, int index) {
         cur->right = calc_postfix(arr, index);
     }
     return cur;
+}
+
+void print_postfix(Node* root) {
+    if (root->left && root->right) {
+        print_postfix(root->left);
+        print_postfix(root->right);
+        cout << root->sym << " ";
+    }
+    else if (root->left) {
+        print_postfix(root->left);
+        cout << root->sym;
+    }
+    else if (root->right) {
+        print_postfix(root->right);
+        cout << root->sym << " ";
+    }
+    else
+        cout << root->sym << " ";
 }
 
 Node* build_prefix(const string& s) {
@@ -183,6 +226,7 @@ Node* build_prefix(const string& s) {
     }
     return calc_prefix(cond, 0);
 }
+
 
 void print_suffix(Node* root) {
     if (root->left && root->right) {
@@ -202,12 +246,8 @@ void print_suffix(Node* root) {
         cout << root->sym << " ";
 }
 
-/*
-* унарный "-" вводить слитно, например: -6 + 3,
-* На конце без пробела
-*/
-
 int main() { // infix за nlog
+    freopen("input.txt", "r", stdin);
     string s;
     getline(cin, s);
     Node* root = build_inf_tree(s);
